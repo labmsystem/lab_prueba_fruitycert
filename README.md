@@ -1,44 +1,31 @@
 # Prueba para Ingeniero de Datos con Conocimientos en Infraestructura en la Nube
 
-## Duración total
-**1 hora**
-
-## Objetivo
-Evaluar habilidades intermedias en:
-- Manipulación y transformación de datos.
-- Optimización de consultas analíticas.
-- Diseño de arquitectura en la nube (AWS o Azure).
-- Desarrollo de infraestructura como código.
-
----
 
 ## Empresa: FruityCert
 
-**FruityCert** es una empresa especializada en la certificación de calidad de frutas destinadas a la exportación. Su labor principal es inspeccionar diferentes especies de frutas para verificar su condición y calidad para diversos clientes.
+**FruityCert** es una empresa especializada en la certificación de calidad de frutas. Su labor principal es inspeccionar diferentes especies de frutas para verificar su condición y calidad para diversos clientes.
 
 - **Condición**: Estado de conservación y deterioro de la fruta a lo largo del tiempo.
 - **Calidad**: Excelencia intrínseca de la fruta en términos de sabor, apariencia, tamaño, etc.
 
 ### Proceso de Inspección
 
-Para evaluar la condición y calidad de las frutas, FruityCert realiza calificaciones basadas en distintos parámetros de inspección específicos para cada tipo de fruta:
+Para evaluar la condición y calidad de las frutas, FruityCert realiza calificaciones basadas en distintos parámetros de inspección específicos para cada tipo de fruta, por ejemplo: 
 
 - **Manzanas**: Color, firmeza, contenido de azúcar, etc.
 - **Uvas**: Nivel de azúcar (brix), firmeza de la piel, tamaño de las bayas, etc.
 
-### Parámetros de Evaluación
-- **Nota de Calidad (QUAL - SCOR)**: Representa la evaluación general de la calidad de una muestra.
-- **Nota de Condición (COND - SCOR)**: Representa la evaluación general de la condición de una muestra.
-
+Algunos parámetros pueden ser comunes entre diferentes especies, mientras que otros son específicos. 
 ### Tipos de Inspección
 Las inspecciones se realizan en distintos puntos del proceso:
 - **Puertos de llegada**: Cuando la fruta llega al país de destino.
 - **Puertos de salida**: Antes de la exportación.
 - **Líneas de trabajo**: Durante el empaque y preparación.
 
-Cada inspección está asociada a una planilla y un pallet específico.
+Cada inspección está asociada a una **planilla de inspección (planilla)** realizada en una fecha determinada. Para efectuar la inspección, se selecciona un **pallet (unidad)** específico, que es una unidad de carga que contiene cajas de fruta. 
 
 ### Atributos del Pallet
+Los pallets tienen varios atributos identificativos, entre ellos: 
 
 | Atributo         | Descripción                |
 |------------------|----------------------------|
@@ -68,63 +55,127 @@ Cada inspección está asociada a una planilla y un pallet específico.
 ---
 
 ## Proceso de Calificación
-
+Después de registrar estos atributos, se toma una **muestra** de cada pallet en las que se evalúan sus distintos parámetros de inspección, las que la gran mayoría están relacionadas a su condición y calidad, estas se registran como: 
 - **Evaluación por Calidad (Q)**
 - **Evaluación por Condición (C)**
 
+Los parámetros más relevantes que aglomeran las evaluaciones de calidad y condición son: 
+
+- **Nota de Calidad (QUAL - SCOR)**: Representa la evaluación general de la calidad de una muestra.
+- **Nota de Condición (COND - SCOR)**: Representa la evaluación general de la condición de una muestra.
+
 La combinación de ambas evaluaciones conforma la nota final de la muestra.
 
+
 ### Niveles de Agregación de Calificaciones
+FruityCert permite a sus clientes ver las calificaciones agregadas en distintos niveles:
 - **Por muestra**: Calificación de una muestra específica del pallet.
 - **Por pallet**: Calificación global del pallet como promedio de las calificaciones de las muestras.
-- **Por inspección**: Calificación general basada en todos los pallets incluidos en la inspección.
-- **Por lote**: Calificación de un conjunto de pallets agrupados según criterios específicos.
+- **Por inspección**: Calificación general basada en todos los pallets incluidos en la inspección, ponderada según la cantidad de cajas de cada pallet.
+- **Por lote**: Calificación de un conjunto de pallets agrupados según criterios específicos definidos por el cliente.
 
 ### Concepto de Lote
 
-El lote agrupa notas de diferentes pallets que comparten ciertos atributos, obteniendo una calificación consolidada.
+El **lote** es fundamental para agrupar notas de diferentes pallets que comparten ciertos atributos, obteniendo una calificación consolidada que ayuda al cliente en la toma de decisiones estratégicas sobre ese grupo de fruta
 
-- **Criterios de Agrupación**: Definidos en la tabla `AtributosLotes`.
-- **Atributos Personalizados**: Los clientes pueden definir atributos adicionales como `Analysis1` a `Analysis5`.
+- **Criterios de Agrupación**:Los lotes se definen en la tabla **AtributosLotes** y pueden incluir cualquier atributo del pallet mencionado anteriormente.
+- **Atributos Personalizados**: Los clientes pueden definir atributos adicionales para conformar lotes, contenidos en **AtributosCliente** e identificados como "Analysis1" a "Analysis5".
+
+Ejemplo: El cliente ExotiFruit agrupa sus inspecciones de paltas utilizando los siguientes atributos: productor, variedad, tamaño, categoría, etiqueta y empaque.
 
 ---
 
 ## Sección 1: Modelamiento de Datos y Construcción Base de Datos Relacional
+**Instrucciones:** Basándote en el contexto y las tablas proporcionadas de FruityCert, responde a las siguientes preguntas y tareas relacionadas con el modelamiento de datos y diseño de base de datos.
 
 ### Ejercicio 1: Diseño del Modelo de Datos Relacional
 
-**Objetivo**: Dibujar un DER que represente el modelo de datos relacional para FruityCert.
+**Objetivo**: Diseñar un DER que represente el modelo de datos relacional para FruityCert.
 
 **Instrucciones**:
-- Utiliza una herramienta de diagramación o hazlo a mano.
-- Incluye atributos clave y cardinalidades de las relaciones.
+- Utiliza una herramienta de diagramación (puede ser a mano alzada si no tienes acceso a una) para crear un DER que incluya todas las entidades identificadas y sus relaciones.
+- Asegúrate de incluir atributos clave de cada entidad y las cardinalidades de las relaciones.
 
 ### Ejercicio 2: Normalización de la Base de Datos
 
-**Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar integridad.
+**Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar la integridad de los datos..
 
 **Instrucciones**:
-- Analiza las tablas `tablonInspecciones`, `ParametrosInspeccion`, `AtributosLotes`.
-- Determina si están en tercera forma normal (3FN).
-- Proporciona estructuras de las tablas normalizadas resultantes.
+- Analiza las tablas proporcionadas (**tablonInspecciones**, **ParametrosInspeccion**, **AtributosLotes**, **AtributoLoteCliente**) y determina si están en tercera forma normal (3FN).
+- Si encuentras que no están en 3FN, explica las anomalías y cómo las corregirías.
+- roporciona las estructuras de las tablas normalizadas resultantes.
 
 ### Ejercicio 3: Implementación de la Base de Datos
 
-**Objetivo**: Crea una base de datos en PostgreSQL utilizando Docker.
+**Objetivo**: Crea una base de datos en PostgreSQL utilizando una[ imagen Docker]([url](https://hub.docker.com/_/postgres)). Utiliza el diagrama entidad-relación que planteaste anteriormente para definir las tablas y relaciones. Debes proporcionar un Dockerfile que, al ejecutarlo, levante la base de datos con las instrucciones DDL necesarias para crear las tablas y establecer las relaciones.
 
 **Instrucciones**:
 - Crea un `Dockerfile` que:
-  - Use la imagen base `postgres:latest`.
-  - Copie los scripts de creación de base de datos.
-  - Configure el contenedor para ejecutar los scripts automáticamente.
+  - Use la imagen base de PostgreSQL (por ejemplo, `postgres:latest`.
+  - Copie los scripts de creación de la base de datos (archivos .sql con las sentencias DDL) al contenedor.
+  - Asegúrate de que el contenedor Docker, al iniciarse, cree la base de datos y las tablas automáticamente sin intervención manual.
 
-Ejemplo de `Dockerfile`:
+## Sección 2: Construcción de un Pipeline ETL con Procesos de Calidad de Datos (20 minutos)
+**Instrucciones:**
 
-```dockerfile
-FROM postgres:latest
-COPY ./init.sql /docker-entrypoint-initdb.d/
-Sección 2: Construcción de un Pipeline ETL
-Construye un ETL que extraiga, transforme y cargue los datos en otra carpeta para la ejecución.
+Desarrolla un pipeline ETL que:
+- Extraiga los datos desde el bucket S3 público prueba-fruitycert (ARN: arn:aws:s3:::prueba-fruitycert), específicamente los archivos:
+| Archivo                  |
+|--------------------------|
+| `AtributoCliente.csv`    |
+| `Inspecciones.csv`       |
+| `ParametrosInspeccion.csv`|
+| `AtributosLotes.csv`     |
+
+Transforme los datos aplicando procesos de calidad:
+
+Manejo de valores nulos o faltantes.
+Conversión de tipos de datos (fechas, números).
+Eliminación de duplicados.
+Validación de rangos y consistencia.
+Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
+
+Requisitos:
+
+El pipeline debe ser ejecutable mediante un script o contenedor Docker.
+Documenta brevemente los pasos y decisiones tomadas.
+El código debe permitir ejecutar el pipeline con un solo comando.
+Entrega:
+
+Código fuente del pipeline.
+Instrucciones claras en un archivo README.
+
+Modelamiento de Datos y Construcción Base de Datos Relacional
+**Instrucciones:** Basándote en el contexto y las tablas proporcionadas de FruityCert, responde a las siguientes preguntas y tareas relacionadas con el modelamiento de datos y diseño de base de datos.
+
+### Ejercicio 1: Diseño del Modelo de Datos Relacional
+
+**Objetivo**: Diseñar un DER que represente el modelo de datos relacional para FruityCert.
+
+**Instrucciones**:
+- Utiliza una herramienta de diagramación (puede ser a mano alzada si no tienes acceso a una) para crear un DER que incluya todas las entidades identificadas y sus relaciones.
+- Asegúrate de incluir atributos clave de cada entidad y las cardinalidades de las relaciones.
+
+### Ejercicio 2: Normalización de la Base de Datos
+
+**Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar la integridad de los datos..
+
+**Instrucciones**:
+- Analiza las tablas proporcionadas (**tablonInspecciones**, **ParametrosInspeccion**, **AtributosLotes**, **AtributoLoteCliente**) y determina si están en tercera forma normal (3FN).
+- Si encuentras que no están en 3FN, explica las anomalías y cómo las corregirías.
+- roporciona las estructuras de las tablas normalizadas resultantes.
+
+### Ejercicio 3: Implementación de la Base de Datos
+
+**Objetivo**: Crea una base de datos en PostgreSQL utilizando una[ imagen Docker]([url](https://hub.docker.com/_/postgres)). Utiliza el diagrama entidad-relación que planteaste anteriormente para definir las tablas y relaciones. Debes proporcionar un Dockerfile que, al ejecutarlo, levante la base de datos con las instrucciones DDL necesarias para crear las tablas y establecer las relaciones.
+
+**Instrucciones**:
+- Crea un `Dockerfile` que:
+  - Use la imagen base de PostgreSQL (por ejemplo, `postgres:latest`.
+  - Copie los scripts de creación de la base de datos (archivos .sql con las sentencias DDL) al contenedor.
+  - Asegúrate de que el contenedor Docker, al iniciarse, cree la base de datos y las tablas automáticamente sin intervención manual.
+
+
 
 Consultas Analíticas y Optimización
 Ejercicio 1: Cálculo de Calificaciones Promedio por Lote y Pallet
