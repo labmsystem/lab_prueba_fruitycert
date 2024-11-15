@@ -1,4 +1,4 @@
-# Prueba para Ingeniero de Datos con Conocimientos en Infraestructura en la Nube ☁️
+# Prueba para Ingeniero de Datos  ☁️
 
 ## Empresa: FruityCert 🍈🍇🍌🍋🍒
 
@@ -135,20 +135,20 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
 **Instrucciones:**
 
 Desarrolla un pipeline ETL que:
-### Ejercicio 1 Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
+### Ejercicio 1: Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
 - `AtributosCliente.csv`
 - `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
 - `AtributosLotes.csv`
 
-### Ejercicio 2 Transforme los datos aplicando procesos de calidad:
+### Ejercicio 2: Transforme los datos aplicando procesos de calidad:
 - Manejo de valores nulos o faltantes.
 - Conversión de tipos de datos (fechas, números).
 - Eliminación de duplicados.
 - Validación de rangos y consistencia.
 - Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
 
-### Ejercicio 3 Crea un protocolo y código para recuperación ante desastres (DR) en que:
+### Ejercicio 3: Crea un protocolo y código para recuperación ante desastres (DR) en que:
 - Se copie la información almacenada en la base de datos en un formato eficiente como **Parquet** y guardarlos en un directorio accesible.
 - Generar un código de carga a la base de datos los más óptimo y veloz posible.
 - 
@@ -156,36 +156,38 @@ Desarrolla un pipeline ETL que:
 
 - El pipeline debe ser ejecutable mediante un script o contenedor Docker.
 - Documenta brevemente los pasos y decisiones tomadas.
-- El código debe permitir ejecutar tanto la carga como el DR con un solo comando, y debe ser replicable.
+- El código debe permitir ejecutar tanto la carga de la información a la BD, la generación del DR en una carpeta establecida y la carga de la información desde el DR a la base de datos .
 
 
 ## Sección 3: Consultas Analíticas y Optimización
-**Instrucciones:** Utiliza las tablas proporcionadas y el contexto de FruityCert para realizar las siguientes consultas analíticas. En cada uno de los ejercicios, se darán **puntos extra** por implementar cada consulta en el pipeline y base de datos. 
-
+**Instrucciones:** Utiliza las tablas proporcionadas y el contexto de FruityCert para realizar las siguientes consultas analíticas. En cada uno de los ejercicios, implementa la consulta solicitada como parte del pipeline que carga la información a la base de datos. Te dejamos a ti cuál es la forma más eficiente de cargar la información dentro de tu esquema relacional 😉.
+.
 ### Ejercicio 1: Cálculo de Calificaciones Promedio por Lote y Pallet
 - **Objetivo:** Escribir una consulta que calcule la calificación promedio de calidad y condición por inspección (planilla), lote y por pallet en base al COND - SCOR y BQUA - SCOR de cada muestra, donde un lote se define según los criterios especificados en la tabla AtributosLotes para cada cliente. 
-- **Salida esperada:** La misma tabla tablonInspecciones, agregando las columnas NotaInspQ, NotaInspC, NotaPalletQ, NotaPalletC. NotaLoteQ, NotaLoteC, NotaPalletQ, NotaPalletC. 
+- **Salida esperada:**  NotaInspQ, NotaInspC, NotaPalletQ, NotaPalletC. NotaLoteQ, NotaLoteC, NotaPalletQ, NotaPalletC. 
 
 ### Ejercicio 2: Análisis de Rendimiento por Variedad y Mercado
 - **Objetivo:** Identificar qué variedades (Variety) por cada fruta (Especie) que tienen el mejor rendimiento en términos de calidad en diferentes mercados (Market).
-- **Salida esperada:** Tabla con columnas Market, Variety, calidad_promedio, rank.
+- **Salida esperada:** Market, Variety, calidad_promedio, rank.
 
 ### Ejercicio 3: Monitoreo de Desempeño de Parámetros Específicos
-- **Objetivo:** Evaluar cómo varía cada parámetro de inspección de las UVAS en PACK para GreenHarvest Exports a lo largo del tiempo y detecta cuáles tienen mayor variación. Utiliza funciones de ventana. 
-- **Salida esperada:** Tabla con columnas IdCliente, IdTipoInspeccion, IdEspecie, IdPlanilla, IdUnidad, Fecha, ValorParametroInspeccion, valor_anterior, diferencia, alerta_variacion.
+- **Objetivo:** Evaluar cómo varía cada parámetro de inspección de las UVAS en PACK para GreenHarvest Exports a lo largo de cada semana y detecta cuáles tienen mayor variación. Utiliza funciones de ventana. 
+- **Salida esperada:**  ValorParametroInspeccion, valor_anterior, diferencia, alerta_variacion.
 
 ### Ejercicio 4: Identificación de Outliers en Parámetros de Inspección
-- **Objetivo:** Detectar valores atípicos en los parámetros de inspección de cada cliente que puedan indicar problemas de calidad o condición.
-- **Salida esperada:** Tabla con columnas IdCliente, IdTipoInspeccion, IdEspecie, IdPlanilla, IdUnidad, NumeroMuestra, CodigoParametroInspeccion, ValorParamet
+- **Objetivo:** Detectar valores atípicos en los parámetros de inspección de cada cliente que puedan indicar problemas de calidad o condición. Utiliza funciones de ventana.
+- **Salida esperada:** CodigoParametroInspeccion, ValorParamet
 
 ## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código
-Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías. Considera que la base de datos puede llegar a contener 100.000.000 de inspecciones. 
+Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías. 
 ### Pregunta 1: Diseño de Arquitectura de Datos Escalable
 **Escenario:**
+ Piensa ahora que toda la información es constantemente registrada en diferentes parte del mundo por aplicaciones móviles que cargan la información a una base de datos. Considera que se realizan 10.000 inspecciones a lo largo de un día en diferentes horarios y con diferentes concurrencias. Considera que la base de datos puede llegar a contener 100.000.000 de inspecciones almacenadas.
 FruityCert desea implementar una nueva plataforma de datos que les permita:
-- Ingerir datos de inspecciones en tiempo real desde diferentes puertos y líneas de trabajo.
+- Ingerir datos de inspecciones siendo realizadas en tiempo real desde diferentes puertos y líneas de trabajo.
 - Almacenar todos los datos brutos para análisis histórico y cumplimiento regulatorio.
 - Proveer a los clientes informes y dashboards en tiempo real para tomar decisiones estratégicas basadas en las calificaciones de los lotes.
+- Poder generar modelos predictivos con la información sobre el comportamiento de la calidad y condición de la fruta. 
 
 **Tareas:**
 Diseña la arquitectura que implementarías en AWS o Azure para este flujo de trabajo, incluyendo:
@@ -193,9 +195,10 @@ Diseña la arquitectura que implementarías en AWS o Azure para este flujo de tr
 - **Almacenamiento a largo plazo:** Especifica el servicio donde almacenarías datos brutos de manera económica y segura.
 - **Data Warehouse:** Explica cómo estructurarías los datos en un data warehouse para facilitar el análisis y la generación de informes.
 - **Entrega de informes:** Indica qué servicio o herramientas usarías para proporcionar dashboards e informes a los clientes.
+- **Modelos predictivos:** Diseña los servicios y dónde contendrías los modelos que se alimentarían de la información ingestada. 
 - **Optimización y escalabilidad:** ¿Cómo manejarías el escalado automático y la alta disponibilidad de los servicios para asegurar un rendimiento consistente?
 
-### Pregunta 2: Desarrollo de Infraestructura como Código
+### Pregunta 2: Desarrollo de Infraestructura como Código [EXTRA] 
 **Escenario:**
 Como parte de la implementación de la nueva plataforma de datos, necesitas automatizar la creación de la infraestructura en la nube usando Infraestructura como Código (IaC).
 **Tareas:**
@@ -206,7 +209,7 @@ Como parte de la implementación de la nueva plataforma de datos, necesitas auto
   - Servicios de procesamiento y transformación de datos.
   - Data Warehouse.
   - Servicios para la entrega de informes y dashboards.
-- Proporciona ejemplos de código o fragmentos que muestren cómo definirías al menos dos de estos recursos.
+- Codifica 3 servicios de esta infraestructura, preocupándote de la forma esquemática en que la armarías y los protocolos que implementarías. 
 
 
 ### Pregunta 3: Seguridad y Gobernanza en la Nube
