@@ -1,12 +1,11 @@
-# Prueba para Ingeniero de Datos con Conocimientos en Infraestructura en la Nube
+# Prueba para Ingeniero de Datos con Conocimientos en Infraestructura en la Nube ☁️
 
-
-## Empresa: FruityCert
+## Empresa: FruityCert 🍈🍇🍌🍋🍒
 
 **FruityCert** es una empresa especializada en la certificación de calidad de frutas. Su labor principal es inspeccionar diferentes especies de frutas para verificar su condición y calidad para diversos clientes.
 
 - **Condición**: Estado de conservación y deterioro de la fruta a lo largo del tiempo.
-- **Calidad**: Excelencia intrínseca de la fruta en términos de sabor, apariencia, tamaño, etc.
+- **Calidad**: Estado intrínseco de la fruta en términos de sabor, apariencia, tamaño, etc.
 
 ### Proceso de Inspección
 
@@ -17,7 +16,7 @@ Para evaluar la condición y calidad de las frutas, FruityCert realiza calificac
 
 Algunos parámetros pueden ser comunes entre diferentes especies, mientras que otros son específicos. 
 ### Tipos de Inspección
-Las inspecciones se realizan en distintos puntos del proceso:
+Las inspecciones se realizan en distintos puntos del proceso, dependiendo de la necesidad del cliente. Por ejemplo, clientes exportadores inspeccionarán la fruta en origen, mientras que importadores en destino. Algunos ejemplos de tipo de inspección son: 
 - **Puertos de llegada**: Cuando la fruta llega al país de destino.
 - **Puertos de salida**: Antes de la exportación.
 - **Líneas de trabajo**: Durante el empaque y preparación.
@@ -55,11 +54,11 @@ Los pallets tienen varios atributos identificativos, entre ellos:
 ---
 
 ## Proceso de Calificación
-Después de registrar estos atributos, se toma una **muestra** de cada pallet en las que se evalúan sus distintos parámetros de inspección, las que la gran mayoría están relacionadas a su condición y calidad, estas se registran como: 
-- **Evaluación por Calidad (Q)**
-- **Evaluación por Condición (C)**
+Después de registrar estos atributos, se toma una **muestra** de cada pallet en las que se evalúan sus distintos **parámetros de inspección**, las que la gran mayoría están relacionadas a su condición y calidad, estas se registran como: 
+- **Evaluación por Calidad (Q - BQUA)**
+- **Evaluación por Condición (C - COND)**
 
-Los parámetros más relevantes que aglomeran las evaluaciones de calidad y condición son: 
+Los parámetros más relevantes que resumen las evaluaciones de calidad y condición son: 
 
 - **Nota de Calidad (QUAL - SCOR)**: Representa la evaluación general de la calidad de una muestra.
 - **Nota de Condición (COND - SCOR)**: Representa la evaluación general de la condición de una muestra.
@@ -71,26 +70,37 @@ La combinación de ambas evaluaciones conforma la nota final de la muestra.
 FruityCert permite a sus clientes ver las calificaciones agregadas en distintos niveles:
 - **Por muestra**: Calificación de una muestra específica del pallet.
 - **Por pallet**: Calificación global del pallet como promedio de las calificaciones de las muestras.
-- **Por inspección**: Calificación general basada en todos los pallets incluidos en la inspección, ponderada según la cantidad de cajas de cada pallet.
+- **Por inspección**: Calificación general basada en todos los pallets incluidos en la planilla de inspección, ponderada según la cantidad de cajas de cada pallet.
 - **Por lote**: Calificación de un conjunto de pallets agrupados según criterios específicos definidos por el cliente.
 
 ### Concepto de Lote
 
-El **lote** es fundamental para agrupar notas de diferentes pallets que comparten ciertos atributos, obteniendo una calificación consolidada que ayuda al cliente en la toma de decisiones estratégicas sobre ese grupo de fruta
+El **lote** es fundamental para agrupar notas de diferentes pallets que comparten ciertos atributos, obteniendo una calificación consolidada que ayuda al cliente en la toma de decisiones estratégicas sobre ese grupo de fruta. Estos están definidos por: 
 
 - **Criterios de Agrupación**:Los lotes se definen en la tabla **AtributosLotes** y pueden incluir cualquier atributo del pallet mencionado anteriormente.
 - **Atributos Personalizados**: Los clientes pueden definir atributos adicionales para conformar lotes, contenidos en **AtributosCliente** e identificados como "Analysis1" a "Analysis5".
 
-Ejemplo: El cliente ExotiFruit agrupa sus inspecciones de paltas utilizando los siguientes atributos: productor, variedad, tamaño, categoría, etiqueta y empaque.
+**Ejemplo:** El cliente ExotiFruit agrupa sus inspecciones de paltas utilizando los siguientes atributos: productor, variedad, tamaño, categoría, etiqueta y empaque.
 
 ---
-A partir del contexto anterior, utiliza la siguiente fuente de información para realizar la prueba: 
-[fruitycert](https://prueba-fruitycert.s3.us-east-1.amazonaws.com/)
-- `AtributoCliente.csv`
-- `Inspecciones.csv`
+A partir del contexto anterior, utiliza las tablas dispuestas en el siguiente link [fruitycert](https://prueba-fruitycert.s3.us-east-1.amazonaws.com/) para realizar la evaluación. Acá están contenidas las diferentes tablas con la información señalada
+- `AtributosCliente.csv`
+- `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
 - `AtributosLotes.csv`
-- 
+
+Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS y consumir la información dispuesta. 
+
+**Recomendaciones:**
+- Navega por las tablas, comprende cómo se asocia el contexto a cada columna de cada tabla y cómo se relacionan.
+- Comprende bien la agregación por muestra, pallet, lote e inspección, ahí está la clave al éxito 😉.
+- La prueba está armada de tal forma que también te ayude a orientarte, utiliza eso en tu beneficio.
+- Si tienes dudas sobre el enunciado, crea un `Issue` que se entienda lo que necesitas aclarar:
+  - Titulo: Descripción breve y precisa del problema.
+  - Etiquetas: `error` | `documentacion`
+  - Descripción precisa.
+- La tabla `TablonInspecciones.csv` es grande! Parte del desafío es que sepas como manejar y eficientar su consumo. Puedes utilizar **diferentes tipos de estructura** para esto. 
+
 ## Sección 1: Modelamiento de Datos y Construcción Base de Datos Relacional
 **Instrucciones:** Basándote en el contexto y las tablas proporcionadas de FruityCert, responde a las siguientes preguntas y tareas relacionadas con el modelamiento de datos y diseño de base de datos.
 
@@ -99,12 +109,12 @@ A partir del contexto anterior, utiliza la siguiente fuente de información para
 **Objetivo**: Diseñar un DER que represente el modelo de datos relacional para FruityCert.
 
 **Instrucciones**:
-- Utiliza una herramienta de diagramación (puede ser a mano alzada si no tienes acceso a una) para crear un DER que incluya todas las entidades identificadas y sus relaciones.
+- Utiliza una herramienta de diagramación para crear un DER que incluya todas las entidades identificadas y sus relaciones.
 - Asegúrate de incluir atributos clave de cada entidad y las cardinalidades de las relaciones.
 
 ### Ejercicio 2: Normalización de la Base de Datos
 
-**Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar la integridad de los datos..
+**Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar la integridad de los datos.
 
 **Instrucciones**:
 - Analiza las tablas proporcionadas (**tablonInspecciones**, **ParametrosInspeccion**, **AtributosLotes**, **AtributoLoteCliente**) y determina si están en tercera forma normal (3FN).
@@ -125,9 +135,9 @@ A partir del contexto anterior, utiliza la siguiente fuente de información para
 **Instrucciones:**
 
 Desarrolla un pipeline ETL que:
-1. Extraiga los datos desde el bucket S3 público prueba-fruitycert (ARN: arn:aws:s3:::prueba-fruitycert), específicamente los archivos:
-- `AtributoCliente.csv`
-- `Inspecciones.csv`
+1. Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
+- `AtributosCliente.csv`
+- `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
 - `AtributosLotes.csv`
 
@@ -138,47 +148,38 @@ Desarrolla un pipeline ETL que:
 - Validación de rangos y consistencia.
 - Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
 
+3. Crea un protocolo y código para recuperación ante desastres (DR) en que:
+- Se copie la información almacenada en la base de datos en un formato eficiente como **Parquet** y guardarlos en un directorio accesible.
+- Generar un código de carga a la base de datos los más óptimo y veloz posible.
+- 
 **Requisitos:**
 
 - El pipeline debe ser ejecutable mediante un script o contenedor Docker.
 - Documenta brevemente los pasos y decisiones tomadas.
-- El código debe permitir ejecutar el pipeline con un solo comando.
-
-Entrega:
-Código fuente del pipeline.
-Instrucciones claras en un archivo README.
+- El código debe permitir ejecutar tanto la carga como el DR con un solo comando, y debe ser replicable.
 
 
 ## Sección 3: Consultas Analíticas y Optimización
-**Instrucciones:** Utiliza las tablas proporcionadas y el contexto de FruityCert para realizar las siguientes consultas analíticas. En cada uno de los ejercicios, se darán puntos extra por implementar cada consulta en el pipeline y base de datos. 
-
+**Instrucciones:** Utiliza las tablas proporcionadas y el contexto de FruityCert para realizar las siguientes consultas analíticas. En cada uno de los ejercicios, se darán **puntos extra** por implementar cada consulta en el pipeline y base de datos. 
 
 ### Ejercicio 1: Cálculo de Calificaciones Promedio por Lote y Pallet
-- **Objetivo:** Escribir una consulta que calcule la calificación promedio de calidad y condición por lote y por pallet, donde un lote se define según los criterios especificados en la tabla AtributosLotes para cada cliente.
-- **Salida esperada:** La misma tabla tablonInspecciones, agregando las columnas promedio_nota_lote_calidad, promedio_nota_lote_condicion, promedio_nota_pallet_calidad, promedio_nota_pallet_condicion.
+- **Objetivo:** Escribir una consulta que calcule la calificación promedio de calidad y condición por inspección (planilla), lote y por pallet en base al COND - SCOR y BQUA - SCOR de cada muestra, donde un lote se define según los criterios especificados en la tabla AtributosLotes para cada cliente. 
+- **Salida esperada:** La misma tabla tablonInspecciones, agregando las columnas NotaInspQ, NotaInspC, NotaPalletQ, NotaPalletC. NotaLoteQ, NotaLoteC, NotaPalletQ, NotaPalletC. 
 
-### Ejercicio 2: Determinación de Productores con Mayor Variabilidad en Calificaciones
-**Objetivo:** Determinar cuáles productores tienen la mayor desviación estándar en las calificaciones de calidad de sus frutas.
-**Salida esperada:** Tabla con columnas Grower, desviacion_estandar_calidad, ranking.
-
-### Ejercicio 3: Segmentación de Pallets por Cuartiles de Condición
-- **Objetivo:** Dividir los pallets en cuartiles basados en su calificación de condición promedio utilizando funciones de ventana.
-- **Salida esperada:** Tabla con columnas IdCliente, IdTipoInspeccion, IdEspecie, IdPlanilla, IdUnidad, condicion_promedio, cuartil.
-
-### Ejercicio 4: Análisis de Rendimiento por Variedad y Mercado
-- **Objetivo:** Identificar qué variedades de frutas tienen el mejor rendimiento en términos de calidad en diferentes mercados.
+### Ejercicio 2: Análisis de Rendimiento por Variedad y Mercado
+- **Objetivo:** Identificar qué variedades (Variety) por cada fruta (Especie) que tienen el mejor rendimiento en términos de calidad en diferentes mercados (Market).
 - **Salida esperada:** Tabla con columnas Market, Variety, calidad_promedio, rank.
 
-### Ejercicio 5: Monitoreo de Desempeño de Parámetros Específicos
-- **Objetivo:** Evaluar cómo varía un parámetro de inspección específico a lo largo del tiempo y detectar tendencias utilizando funciones de ventana.
+### Ejercicio 3: Monitoreo de Desempeño de Parámetros Específicos
+- **Objetivo:** Evaluar cómo varía cada parámetro de inspección de las UVAS en PACK para GreenHarvest Exports a lo largo del tiempo y detecta cuáles tienen mayor variación. Utiliza funciones de ventana. 
 - **Salida esperada:** Tabla con columnas IdCliente, IdTipoInspeccion, IdEspecie, IdPlanilla, IdUnidad, Fecha, ValorParametroInspeccion, valor_anterior, diferencia, alerta_variacion.
 
-### Ejercicio 6: Identificación de Outliers en Parámetros de Inspección
-- **Objetivo:** Detectar valores atípicos en los parámetros de inspección que puedan indicar problemas de calidad o condición.
+### Ejercicio 4: Identificación de Outliers en Parámetros de Inspección
+- **Objetivo:** Detectar valores atípicos en los parámetros de inspección de cada cliente que puedan indicar problemas de calidad o condición.
 - **Salida esperada:** Tabla con columnas IdCliente, IdTipoInspeccion, IdEspecie, IdPlanilla, IdUnidad, NumeroMuestra, CodigoParametroInspeccion, ValorParamet
 
 ## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código
-Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías.
+Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías. Considera que la base de datos puede llegar a contener 100.000.000 de inspecciones. 
 ### Pregunta 1: Diseño de Arquitectura de Datos Escalable
 **Escenario:**
 FruityCert desea implementar una nueva plataforma de datos que les permita:
@@ -211,3 +212,6 @@ Como parte de la implementación de la nueva plataforma de datos, necesitas auto
 ### Pregunta 3: Seguridad y Gobernanza en la Nube
 - **Accesos y permisos:** ¿Qué políticas o roles implementarías en AWS o Azure para asegurar que solo personal autorizado acceda a datos sensibles, incluyendo datos de clientes y calificaciones?
 - **Costos:** Explica dos estrategias específicas que podrías utilizar para reducir costos en un sistema que maneja grandes volúmenes de datos en almacenamiento y procesamiento en la nube.
+
+## Entrega
+Para la entrega de esta evaluación, clona el repositorio y luego cárgalo en un lugar que podamos acceder. Acá debe estar contenido todo lo solicitado. Al finalizar, envía un correo a lab@microsystem.cl señalando tu nombre y link del repo. Suerte! 💪
