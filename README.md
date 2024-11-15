@@ -83,7 +83,7 @@ El **lote** es fundamental para agrupar notas de diferentes pallets que comparte
 **Ejemplo:** El cliente ExotiFruit agrupa sus inspecciones de paltas utilizando los siguientes atributos: productor, variedad, tamaño, categoría, etiqueta y empaque.
 
 ---
-A partir del contexto anterior, utiliza las tablas dispuestas en el siguiente link [fruitycert](https://prueba-fruitycert.s3.us-east-1.amazonaws.com/) para realizar la evaluación. Acá están contenidas las diferentes tablas con la información señalada
+A partir del contexto anterior, utiliza las tablas dispuestas en el siguiente link `https://prueba-fruitycert.s3.us-east-1.amazonaws.com/` para realizar la evaluación. Acá están contenidas las diferentes tablas con la información señalada
 - `AtributosCliente.csv`
 - `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
