@@ -101,10 +101,10 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
   - Descripción precisa.
 - La tabla `TablonInspecciones.csv` es grande! Parte del desafío es que sepas como manejar y eficientar su consumo. Puedes utilizar **diferentes tipos de estructura** para esto. 
 
-## Sección 1: Modelamiento de Datos y Construcción Base de Datos Relacional
+## Sección 1: Modelamiento de Datos y Construcción Base de Datos Relacional [160 pts]
 **Instrucciones:** Basándote en el contexto y las tablas proporcionadas de FruityCert, responde a las siguientes preguntas y tareas relacionadas con el modelamiento de datos y diseño de base de datos.
 
-### Ejercicio 1: Diseño del Modelo de Datos Relacional
+### Ejercicio 1: Diseño del Modelo de Datos Relacional [40 pts]
 
 **Objetivo**: Diseñar un DER que represente el modelo de datos relacional para FruityCert.
 
@@ -112,7 +112,7 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
 - Utiliza una herramienta de diagramación para crear un DER que incluya todas las entidades identificadas y sus relaciones.
 - Asegúrate de incluir atributos clave de cada entidad y las cardinalidades de las relaciones.
 
-### Ejercicio 2: Normalización de la Base de Datos
+### Ejercicio 2: Normalización de la Base de Datos [60 pts]
 
 **Objetivo**: Normalizar las tablas para eliminar redundancias y asegurar la integridad de los datos.
 
@@ -121,7 +121,7 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
 - Si encuentras que no están en 3FN, explica las anomalías y cómo las corregirías.
 - Proporciona las estructuras de las tablas normalizadas resultantes.
 
-### Ejercicio 3: Implementación de la Base de Datos
+### Ejercicio 3: Implementación de la Base de Datos [60 pts]
 
 **Objetivo**: Crea una base de datos en PostgreSQL utilizando una[ imagen Docker]([url](https://hub.docker.com/_/postgres)). Utiliza el diagrama entidad-relación que planteaste anteriormente para definir las tablas y relaciones. Debes proporcionar un Dockerfile que, al ejecutarlo, levante la base de datos con las instrucciones DDL necesarias para crear las tablas y establecer las relaciones.
 
@@ -131,56 +131,61 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
   - Copie los scripts de creación de la base de datos (archivos .sql con las sentencias DDL) al contenedor.
   - Asegúrate de que el contenedor Docker, al iniciarse, cree la base de datos y las tablas automáticamente sin intervención manual.
 
-## Sección 2: Construcción de un Pipeline ETL con Procesos de Calidad de Datos (20 minutos)
+## Sección 2: Construcción de un  ETL con Procesos de Calidad de Datos (20 minutos) [230 pts]
 **Instrucciones:**
 
 Desarrolla un pipeline ETL que:
-### Ejercicio 1: Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
+### Ejercicio 1: Extracción [20 pts]
+Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
 - `AtributosCliente.csv`
 - `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
 - `AtributosLotes.csv`
 
-### Ejercicio 2: Transforme los datos aplicando procesos de calidad:
+### Ejercicio 2: Transformación [30 pts]
+Transforme los datos aplicando procesos de calidad:
 - Manejo de valores nulos o faltantes.
 - Conversión de tipos de datos (fechas, números).
 - Eliminación de duplicados.
 - Validación de rangos y consistencia.
-- Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
 
-### Ejercicio 3: Crea un protocolo y código para recuperación ante desastres (DR) en que:
+### Ejercicio 3: Carga [40 pts]
+Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
+
+### Ejercicio 3: Disaster Recovery [EXTRA] [140 pts]
+Crea un protocolo y código para recuperación ante desastres (DR) en que:
 - Se copie la información almacenada en la base de datos en un formato eficiente como **Parquet** y guardarlos en un directorio accesible.
 - Generar un código de carga a la base de datos los más óptimo y veloz posible.
-- 
+  
 **Requisitos:**
 
 - El pipeline debe ser ejecutable mediante un script o contenedor Docker.
 - Documenta brevemente los pasos y decisiones tomadas.
-- El código debe permitir ejecutar tanto la carga de la información a la BD, la generación del DR en una carpeta establecida y la carga de la información desde el DR a la base de datos .
+- El código debe permitir ejecutar tanto la carga de la información a la BD, la generación del DR en una carpeta establecida y la carga de la información desde el DR a la base de datos.
 
 
-## Sección 3: Consultas Analíticas y Optimización
+## Sección 3: Consultas Analíticas y Optimización [310 pts]
 **Instrucciones:** Utiliza las tablas proporcionadas y el contexto de FruityCert para realizar las siguientes consultas analíticas. En cada uno de los ejercicios, implementa la consulta solicitada como parte del pipeline que carga la información a la base de datos. Te dejamos a ti cuál es la forma más eficiente de cargar la información dentro de tu esquema relacional 😉.
 .
-### Ejercicio 1: Cálculo de Calificaciones Promedio por Lote y Pallet
+### Ejercicio 1: Cálculo de Calificaciones Promedio por Lote y Pallet [80 pts]
 - **Objetivo:** Escribir una consulta que calcule la calificación promedio de calidad y condición por inspección (planilla), lote y por pallet en base al COND - SCOR y BQUA - SCOR de cada muestra, donde un lote se define según los criterios especificados en la tabla AtributosLotes para cada cliente. 
 - **Salida esperada:**  NotaInspQ, NotaInspC, NotaPalletQ, NotaPalletC. NotaLoteQ, NotaLoteC, NotaPalletQ, NotaPalletC. 
 
-### Ejercicio 2: Análisis de Rendimiento por Variedad y Mercado
+### Ejercicio 2: Análisis de Rendimiento por Variedad y Mercado [40 pts]
 - **Objetivo:** Identificar qué variedades (Variety) por cada fruta (Especie) que tienen el mejor rendimiento en términos de calidad en diferentes mercados (Market).
 - **Salida esperada:** Market, Variety, calidad_promedio, rank.
 
-### Ejercicio 3: Monitoreo de Desempeño de Parámetros Específicos
+### Ejercicio 3: Monitoreo de Desempeño de Parámetros Específicos [110 pts]
 - **Objetivo:** Evaluar cómo varía cada parámetro de inspección de las UVAS en PACK para GreenHarvest Exports a lo largo de cada semana y detecta cuáles tienen mayor variación. Utiliza funciones de ventana. 
 - **Salida esperada:**  ValorParametroInspeccion, valor_anterior, diferencia, alerta_variacion.
 
-### Ejercicio 4: Identificación de Outliers en Parámetros de Inspección
+### Ejercicio 4: Identificación de Outliers en Parámetros de Inspección [80 pts]
 - **Objetivo:** Detectar valores atípicos en los parámetros de inspección de cada cliente que puedan indicar problemas de calidad o condición. Utiliza funciones de ventana.
 - **Salida esperada:** CodigoParametroInspeccion, ValorParamet
 
-## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código
+## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código [240 pts]
 Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías. 
-### Pregunta 1: Diseño de Arquitectura de Datos Escalable
+### Pregunta 1: Diseño de Arquitectura de Datos Escalable [60 pts]
 **Escenario:**
  Piensa ahora que toda la información es constantemente registrada en diferentes parte del mundo por aplicaciones móviles que cargan la información a una base de datos. Considera que se realizan 10.000 inspecciones a lo largo de un día en diferentes horarios y con diferentes concurrencias. Considera que la base de datos puede llegar a contener 100.000.000 de inspecciones almacenadas.
 FruityCert desea implementar una nueva plataforma de datos que les permita:
@@ -198,7 +203,7 @@ Diseña la arquitectura que implementarías en AWS o Azure para este flujo de tr
 - **Modelos predictivos:** Diseña los servicios y dónde contendrías los modelos que se alimentarían de la información ingestada. 
 - **Optimización y escalabilidad:** ¿Cómo manejarías el escalado automático y la alta disponibilidad de los servicios para asegurar un rendimiento consistente?
 
-### Pregunta 2: Desarrollo de Infraestructura como Código [EXTRA] 
+### Pregunta 2: Desarrollo de Infraestructura como Código [EXTRA] [180 pts]
 **Escenario:**
 Como parte de la implementación de la nueva plataforma de datos, necesitas automatizar la creación de la infraestructura en la nube usando Infraestructura como Código (IaC).
 **Tareas:**
@@ -212,9 +217,9 @@ Como parte de la implementación de la nueva plataforma de datos, necesitas auto
 - Codifica 3 servicios de esta infraestructura, preocupándote de la forma esquemática en que la armarías y los protocolos que implementarías. 
 
 
-### Pregunta 3: Seguridad y Gobernanza en la Nube
-- **Accesos y permisos:** ¿Qué políticas o roles implementarías en AWS o Azure para asegurar que solo personal autorizado acceda a datos sensibles, incluyendo datos de clientes y calificaciones?
-- **Costos:** Explica dos estrategias específicas que podrías utilizar para reducir costos en un sistema que maneja grandes volúmenes de datos en almacenamiento y procesamiento en la nube.
+### Pregunta 3: Seguridad y Gobernanza en la Nube [80 pts]
+- **Accesos y permisos:** ¿Qué políticas o roles implementarías en AWS o Azure para asegurar que solo personal autorizado acceda a datos sensibles, incluyendo datos de clientes y calificaciones? 
+- **Costos:** Explica dos estrategias específicas que podrías utilizar para reducir costos en un sistema que maneja grandes volúmenes de datos en almacenamiento y procesamiento en la nube. 
 
 ## Entrega
 Para la entrega de esta evaluación, clona el repositorio y luego cárgalo en un lugar que podamos acceder. Acá debe estar contenido todo lo solicitado. Al finalizar, envía un correo a lab@microsystem.cl señalando tu nombre y link del repo. Suerte! 💪
