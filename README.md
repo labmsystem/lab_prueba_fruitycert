@@ -183,7 +183,7 @@ Crea un protocolo y código para recuperación ante desastres (DR) en que:
 - **Objetivo:** Detectar valores atípicos en los parámetros de inspección de cada cliente que puedan indicar problemas de calidad o condición. Utiliza funciones de ventana.
 - **Salida esperada:** CodigoParametroInspeccion, ValorParamet
 
-## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código [240 pts]
+## Sección 3: Diseño de Arquitectura en la Nube y Desarrollo de Infraestructura como Código [320 pts]
 Instrucciones: Responde a los siguientes escenarios, detallando los servicios específicos de AWS o Azure que utilizarías y explicando los motivos detrás de tus elecciones. En el caso de la infraestructura como código, puedes proporcionar fragmentos de código o describir los recursos que implementarías. 
 ### Pregunta 1: Diseño de Arquitectura de Datos Escalable [60 pts]
 **Escenario:**
