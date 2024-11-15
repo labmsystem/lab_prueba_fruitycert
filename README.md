@@ -131,7 +131,7 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
   - Copie los scripts de creación de la base de datos (archivos .sql con las sentencias DDL) al contenedor.
   - Asegúrate de que el contenedor Docker, al iniciarse, cree la base de datos y las tablas automáticamente sin intervención manual.
 
-## Sección 2: Construcción de un  ETL con Procesos de Calidad de Datos (20 minutos) [230 pts]
+## Sección 2: Construcción de un  ETL con Procesos de Calidad de Datos [230 pts]
 **Instrucciones:**
 
 Desarrolla un pipeline ETL que:
