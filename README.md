@@ -75,7 +75,7 @@ FruityCert permite a sus clientes ver las calificaciones agregadas en distintos 
 
 ### Concepto de Lote
 
-El **lote** es fundamental para agrupar notas de diferentes pallets que comparten ciertos atributos, obteniendo una calificación consolidada que ayuda al cliente en la toma de decisiones estratégicas sobre ese grupo de fruta. Estos están definidos por: 
+El **lote** es fundamental para agrupar notas de diferentes pallets que comparten ciertos atributos, de esta forma, los clientes pueden ver agrupados sus diferentes pallets según atributos que para ellos son relevantes entender como los mismos, y así obtener una calificación consolidada que ayuda al cliente en la toma de decisiones estratégicas sobre ese grupo de fruta. Estos están definidos por: 
 
 - **Criterios de Agrupación**:Los lotes se definen en la tabla **AtributosLotes** y pueden incluir cualquier atributo del pallet mencionado anteriormente.
 - **Atributos Personalizados**: Los clientes pueden definir atributos adicionales para conformar lotes, contenidos en **AtributosCliente** e identificados como "Analysis1" a "Analysis5".
@@ -119,7 +119,7 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
 **Instrucciones**:
 - Analiza las tablas proporcionadas (**tablonInspecciones**, **ParametrosInspeccion**, **AtributosLotes**, **AtributoLoteCliente**) y determina si están en tercera forma normal (3FN).
 - Si encuentras que no están en 3FN, explica las anomalías y cómo las corregirías.
-- roporciona las estructuras de las tablas normalizadas resultantes.
+- Proporciona las estructuras de las tablas normalizadas resultantes.
 
 ### Ejercicio 3: Implementación de la Base de Datos
 
@@ -135,20 +135,20 @@ Para acceder a cada uno de estos `.csv`, debes conectarte a dicho bucket en AWS 
 **Instrucciones:**
 
 Desarrolla un pipeline ETL que:
-1. Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
+### Ejercicio 1 Extraiga los datos desde el bucket S3 público prueba-fruitycert,  específicamente los archivos:
 - `AtributosCliente.csv`
 - `TablonInspecciones.csv`
 - `ParametrosInspeccion.csv`
 - `AtributosLotes.csv`
 
-2. Transforme los datos aplicando procesos de calidad:
+### Ejercicio 2 Transforme los datos aplicando procesos de calidad:
 - Manejo de valores nulos o faltantes.
 - Conversión de tipos de datos (fechas, números).
 - Eliminación de duplicados.
 - Validación de rangos y consistencia.
 - Cargue los datos limpios en la base de datos PostgreSQL creada anteriormente.
 
-3. Crea un protocolo y código para recuperación ante desastres (DR) en que:
+### Ejercicio 3 Crea un protocolo y código para recuperación ante desastres (DR) en que:
 - Se copie la información almacenada en la base de datos en un formato eficiente como **Parquet** y guardarlos en un directorio accesible.
 - Generar un código de carga a la base de datos los más óptimo y veloz posible.
 - 
